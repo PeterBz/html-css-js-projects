@@ -1,0 +1,126 @@
+/* =========================================
+   6. COMPONENTS: PROFILE SECTION
+   ========================================= */
+
+#profil {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  height: 80vh;
+}
+
+// Basis Container (nur Layout)
+.section_pic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Speziell für PROFIL (Rund)
+#profil .section_pic-container {
+  height: 400px;
+  width: 400px;
+  border-radius: 50%; 
+  overflow: hidden;
+}
+
+.section_text {
+  align-self: center;
+  text-align: center;
+  font-weight: 600;
+}
+
+.section_p1 {
+  text-align: center;
+}
+
+.section_p2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--heading-color);
+  
+  span {
+    display: inline-block;
+    animation: wave 1.5s ease-in-out;
+    animation-delay: calc(1s + var(--i) * 0.1s);
+  }
+}
+
+@keyframes wave {
+  0% { transform: translateY(0); }
+  20% { transform: translateY(-20px); color: var(--border-color); }
+  40%, 100% { transform: translateY(0); }
+}
+
+#social-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.icon {
+  cursor: pointer;
+  height: 2rem;
+  filter: var(--icon-filter);
+  transition: filter 0.3s ease;
+}
+
+/* --- RESPONSIVE PROFILE --- */
+
+@include mq(large) {
+  #profil {
+    height: 83vh;
+    margin-bottom: 6rem;
+  }
+}
+
+@include mq(medium) {
+  #profil {
+    display: block; 
+  }
+
+  // Profilbild Anpassung Tablet
+  #profil .section_pic-container {
+    width: 275px; 
+    height: 275px;   
+    margin: 0 auto 2rem;
+  }
+}
+
+@include mq(small) {
+  #profil {
+    height: 83vh;
+    margin-bottom: 0;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .section_p2 {
+    font-size: 1.25rem;
+  }
+
+  // Profilbild Handy
+  #profil .section_pic-container {
+    width: 55vw; 
+    height: 55vw;
+    max-width: 275px;
+    max-height: 275px;
+    margin: 0 auto 2rem;
+  }
+}

@@ -1,0 +1,60 @@
+/* =========================================
+   4. ELEMENTS: BASE HTML
+   ========================================= */
+
+/* Animation beim Laden */
+@keyframes fadeInPage {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  animation: fadeInPage 0.8s ease-out forwards;
+  opacity: 0;
+
+  // HIntergrund
+  background: 
+    /* 1. Das subtile Linienmuster (liegt oben) */
+    repeating-linear-gradient(
+      45deg,                     /* Winkel der Linien */
+      transparent,               /* Start: Durchsichtig */
+      transparent 20px,          /* 20px lang durchsichtig */
+      var(--pattern-color) 20px, /* Dann beginnt die Linie */
+      var(--pattern-color) 21px  /* Die Linie ist genau 1px dick (von 20 bis 21px) */
+    ),
+    /* 2.  Farbverlauf (liegt darunter) */
+    var(--bg-gradient);
+    
+  background-color: var(--bg-color); /* Fallback */
+  
+  /* Damit das Muster beim Scrollen stehen bleibt  */
+  background-attachment: fixed; 
+  min-height: 100vh;
+}
+
+p {
+  color: var(--text-color);
+}
+
+a {
+  color: var(--heading-color);
+  text-decoration: none;
+  transition: all 300ms ease;
+
+  &:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+    text-underline-offset: 1rem;
+    text-decoration-color: var(--border-color);
+  }
+}

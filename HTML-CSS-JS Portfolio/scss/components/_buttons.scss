@@ -1,0 +1,58 @@
+/* =========================================
+   6. COMPONENTS: BUTTONS
+   ========================================= */
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  font-weight: 600;
+  transition: all 300ms ease;
+  padding: 1rem;
+  width: 8rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+// --- SCSS KONTROLLSTRUKTUR ---
+$buttons: (
+  "1": (
+    bg: var(--btn-bg),
+    text: var(--btn-text),
+    hover-bg: var(--heading-color),
+    hover-text: var(--bg-color),
+  ),
+  "2": (
+    bg: transparent,
+    text: var(--heading-color),
+    hover-bg: var(--heading-color),
+    hover-text: var(--bg-color),
+  ),
+);
+
+// generiert die Klassen .btn-color-1 und .btn-color-2 automatisch
+@each $id, $props in $buttons {
+  .btn-color-#{$id} {
+    background: map-get($props, bg);
+    color: map-get($props, text);
+    border: 0.1rem solid var(--btn-border);
+
+    &:hover {
+      background: map-get($props, hover-bg);
+      color: map-get($props, hover-text);
+      // Sonderregel für Button 1 Hover Border
+      @if $id == "1" {
+        border: 0.1rem solid var(--heading-color);
+      }
+    }
+  }
+}
+
+@include mq(small) {
+  .btn-container {
+    flex-wrap: wrap;
+  }
+}

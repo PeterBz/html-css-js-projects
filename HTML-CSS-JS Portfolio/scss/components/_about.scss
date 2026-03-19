@@ -1,0 +1,144 @@
+/* =========================================
+   6. COMPONENTS: ABOUT SECTION
+   ========================================= */
+
+#about {
+  position: relative;
+}
+
+// Speziell für ABOUT Bild (Eckig, Desktop 400px)
+#about .section_pic-container {
+  width: 400px;
+  min-width: 400px; /* Sicherheit: Darf nicht kleiner werden */
+  height: auto;       
+  border-radius: 2rem; 
+  overflow: hidden;
+  margin: auto 2rem 0;
+}
+
+.about-containers {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.about-details-container {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.details-container {
+  padding: 1.5rem;
+  flex: 1;
+  background: var(--box-bg);
+  border-radius: 2rem;
+  border: 0.1rem solid var(--border-color);
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.text-container {
+  p {
+    text-align: justify; 
+  }
+}
+
+.arrow {
+  position: absolute;
+  right: -5rem;
+  bottom: 2.5rem;
+  filter: var(--icon-filter);
+}
+
+// Tabelle
+.education-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+
+  th {
+    padding: 1rem 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    color: var(--heading-color);
+  }
+
+  td {
+    padding: 1rem 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease;
+    
+    &:first-child {
+      font-weight: 500;
+      white-space: nowrap;
+      width: 30%;
+      color: var(--heading-color);
+    }
+  }
+
+  tr:hover td {
+    background-color: rgba(128, 128, 128, 0.1);
+    cursor: default;
+  }
+}
+
+/* --- RESPONSIVE ABOUT --- */
+
+@include mq(large) {
+  .about-containers {
+    flex-wrap: wrap;
+  }
+}
+
+@include mq(medium) {
+  .about-containers {
+    margin-top: 0;
+  }
+
+  .arrow {
+    display: none;
+  }
+
+  // About Bild Responsive (Tablet & Handy)
+  #about .section_pic-container {
+    width: 100%;      
+    max-width: 400px; 
+    min-width: 0;     /* Flexibilität zurückgeben */
+    height: auto;     
+    margin: 0 auto 2rem;
+    border-radius: 2rem;
+  }
+}
+
+@include mq(small) {
+  .about-containers {
+    flex-wrap: wrap;
+  }
+
+  .text-container {
+    text-align: justify;
+  }
+
+  // About Bild Handy
+  #about .section_pic-container {
+    width: 80vw;
+    height: auto;
+    border-radius: 1.5rem;
+  }
+
+  .education-table {
+    font-size: 0.85rem;
+    
+    th, td {
+      padding: 0.75rem 0.25rem;
+    }
+  }
+}

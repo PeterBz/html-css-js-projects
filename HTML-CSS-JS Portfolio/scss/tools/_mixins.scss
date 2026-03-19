@@ -1,0 +1,22 @@
+/* =========================================
+   2. TOOLS: MIXINS
+   ========================================= */
+
+// Mixin für Media Queries
+@mixin mq($breakpoint) {
+  
+  /* LARGE = Alles unter 1400px (Laptop) */
+  @if $breakpoint == large {
+    @media screen and (max-width: 1400px) { @content; }
+  }
+  
+  /* MEDIUM = Alles unter 1200px (Tablet) */
+  @else if $breakpoint == medium {
+    @media screen and (max-width: 1200px) { @content; }
+  }
+  
+  /* SMALL = Alles unter 600px (Handy) */
+  @else if $breakpoint == small {
+    @media screen and (max-width: 600px) { @content; }
+  }
+}

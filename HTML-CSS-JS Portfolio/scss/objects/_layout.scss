@@ -1,0 +1,44 @@
+/* =========================================
+   5. OBJECTS: LAYOUT
+   ========================================= */
+
+section {
+  /* --- 1. GLOBALE BASIS (Für alle Screens) --- */
+  padding-top: 4vh;
+  height: 96vh;
+  margin: 0 10rem;
+  min-height: fit-content;
+  position: relative;
+
+  /* --- 2. HANDY-REGEL (NUR unter 600px) --- */
+  @include mq(small) {
+    
+    scroll-margin-top: 30rem; 
+  }
+  @include mq(medium) {
+    scroll-margin-top: 30rem; 
+  }
+}
+
+.section-container {
+  display: flex;
+}
+
+/* --- 3. RESPONSIVE ANPASSUNGEN (Tablet/Laptop) --- */
+
+@include mq(large) {
+  section {
+    margin: 0 5%;
+  }
+}
+
+@include mq(medium) {
+  section,
+  .section-container {
+    height: fit-content;
+  }
+  
+  .section-container {
+    display: block; 
+  }
+}

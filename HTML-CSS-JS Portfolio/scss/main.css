@@ -1,0 +1,998 @@
+@charset "UTF-8";
+/* =========================================
+   1. SETTINGS: VARIABLES
+   ========================================= */
+@import "https://unpkg.com/open-props/easings.min.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  /* --- LIGHT MODE (Standard) --- */
+  --bg-color: #ffffff;
+  --text-color: rgb(85, 85, 85);
+  --heading-color: black;
+  --box-bg: #ffffff;
+  --border-color: rgb(163, 163, 163);
+  /* Buttons */
+  --btn-bg: rgb(53, 53, 53);
+  --btn-text: white;
+  --btn-border: rgb(53, 53, 53);
+  /* Icons & Schatten */
+  --icon-filter: none;
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Hover Farben */
+  --link-hover: grey;
+  --icon-fill: var(--heading-color);
+  --icon-fill-hover: var(--border-color);
+  /* Wellen Hintergrund */
+  --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #b6b6b6 100%);
+  /* rgba(0,0,0, 0.03) bedeutet: Schwarz mit nur 3% Sichtbarkeit */
+  --pattern-color: rgba(0, 0, 0, 0.03);
+}
+
+/* --- DARK MODE --- */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --heading-color: #ffffff;
+  --box-bg: #1e1e1e;
+  --border-color: #444444;
+  --btn-bg: #ffffff;
+  --btn-text: #121212;
+  --btn-border: #ffffff;
+  --icon-filter: invert(1) brightness(2);
+  --shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  --link-hover: #ffffff;
+  --icon-fill: var(--heading-color);
+  --icon-fill-hover: var(--text-color);
+  /* Wellen Hintergrund */
+  --bg-gradient: linear-gradient(135deg, #747474 0%, #121212 100%);
+  --pattern-color: rgba(255, 255, 255, 0.03);
+}
+
+/* =========================================
+   2. TOOLS: MIXINS
+   ========================================= */
+/* =========================================
+   3. GENERIC: RESET
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================================
+   4. ELEMENTS: BASE HTML
+   ========================================= */
+/* Animation beim Laden */
+@keyframes fadeInPage {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  animation: fadeInPage 0.8s ease-out forwards;
+  opacity: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 20px, var(--pattern-color) 20px, var(--pattern-color) 21px), var(--bg-gradient);
+  background-color: var(--bg-color); /* Fallback */
+  /* Damit das Muster beim Scrollen stehen bleibt  */
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+p {
+  color: var(--text-color);
+}
+
+a {
+  color: var(--heading-color);
+  text-decoration: none;
+  transition: all 300ms ease;
+}
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 1rem;
+  text-decoration-color: var(--border-color);
+}
+
+/* =========================================
+   5. OBJECTS: LAYOUT
+   ========================================= */
+section {
+  /* --- 1. GLOBALE BASIS (Für alle Screens) --- */
+  padding-top: 4vh;
+  height: 96vh;
+  margin: 0 10rem;
+  min-height: -moz-fit-content;
+  min-height: fit-content;
+  position: relative;
+  /* --- 2. HANDY-REGEL (NUR unter 600px) --- */
+  /* LARGE = Alles unter 1400px (Laptop) */
+  /* LARGE = Alles unter 1400px (Laptop) */
+}
+@media screen and (max-width: 600px) {
+  section {
+    scroll-margin-top: 30rem;
+  }
+}
+@media screen and (max-width: 1200px) {
+  section {
+    scroll-margin-top: 30rem; 
+    /* JS nachschlagen , schaue FRontend files auf moodle
+     */
+  }
+}
+
+.section-container {
+  display: flex;
+}
+
+/* --- 3. RESPONSIVE ANPASSUNGEN (Tablet/Laptop) --- */
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1400px) {
+  section {
+    margin: 0 5%;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  section,
+  .section-container {
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .section-container {
+    display: block;
+  }
+}
+/* =========================================
+   6. COMPONENTS: BUTTONS
+   ========================================= */
+.btn-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  font-weight: 600;
+  transition: all 300ms ease;
+  padding: 1rem;
+  width: 8rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.btn-color-1 {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  border: 0.1rem solid var(--btn-border);
+}
+.btn-color-1:hover {
+  background: var(--heading-color);
+  color: var(--bg-color);
+  border: 0.1rem solid var(--heading-color);
+}
+
+.btn-color-2 {
+  background: transparent;
+  color: var(--heading-color);
+  border: 0.1rem solid var(--btn-border);
+}
+.btn-color-2:hover {
+  background: var(--heading-color);
+  color: var(--bg-color);
+}
+
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  .btn-container {
+    flex-wrap: wrap;
+  }
+}
+/* =========================================
+   6. COMPONENTS: NAVIGATION
+   ========================================= */
+nav,
+.nav-links {
+  display: flex;
+}
+
+nav {
+  justify-content: space-around;
+  align-items: center;
+  height: 17vh;
+}
+
+.nav-links {
+  gap: 2rem;
+  list-style: none;
+  font-size: 1.5rem;
+}
+
+.nav-links li a:hover,
+.menu-links li a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+  text-underline-offset: 1rem;
+  text-decoration-color: var(--border-color);
+}
+
+.logo {
+  font-size: 2rem;
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+.logo:hover {
+  cursor: default;
+}
+
+/* --- HAMBURGER MENU --- */
+#hamburger-nav {
+  display: none;
+}
+
+#hamburger-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 24px;
+  width: 30px;
+  cursor: pointer;
+}
+.hamburger-icon span {
+  width: 100%;
+  height: 2px;
+  background-color: var(--heading-color);
+  transition: all 0.3s ease-in-out;
+}
+.hamburger-icon.open span:first-child {
+  transform: rotate(45deg) translate(10px, 5px);
+}
+.hamburger-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-icon.open span:last-child {
+  transform: rotate(-45deg) translate(10px, -5px);
+}
+
+.menu-links {
+  /* Basis Styles für Dropdown */
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  background-color: var(--box-bg);
+  width: -moz-fit-content;
+  width: fit-content;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 1000;
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+}
+.menu-links a {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--heading-color);
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+.menu-links li {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+.menu-links.open {
+  max-height: 600px;
+}
+
+/* --- RESPONSIVE NAV (aus mediaqueries.css) --- */
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  #desktop-nav {
+    display: none;
+  }
+  #hamburger-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    min-height: 10vh;
+    padding: 1rem 5%;
+    position: relative;
+    z-index: 1000;
+  }
+  #hamburger-menu {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    position: static;
+    background-color: var(--bg-color);
+    overflow: hidden;
+  }
+  .menu-links.open {
+    margin-top: 1rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border-color);
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .nav-links li a {
+    font-size: 1rem;
+  }
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+/* =========================================
+   6. COMPONENTS: THEME TOGGLE
+   ========================================= */
+#theme-toggle-mobile {
+  display: none;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  outline-offset: 5px;
+}
+.theme-toggle > svg {
+  inline-size: 100%;
+  block-size: 100%;
+  stroke-linecap: round;
+}
+
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+  transform-origin: center;
+}
+.sun-and-moon > :is(.moon, .sun) {
+  fill: var(--icon-fill);
+}
+.sun-and-moon > .sun-beams {
+  stroke: var(--icon-fill);
+  stroke-width: 2px;
+}
+
+.theme-toggle:is(:hover, :focus-visible) > .sun-and-moon > :is(.moon, .sun) {
+  fill: var(--icon-fill-hover);
+}
+.theme-toggle:is(:hover, :focus-visible) .sun-and-moon > .sun-beams {
+  stroke: var(--icon-fill-hover);
+}
+
+[data-theme=dark] .sun-and-moon > .sun {
+  transform: scale(1.75);
+}
+[data-theme=dark] .sun-and-moon > .sun-beams {
+  opacity: 0;
+}
+[data-theme=dark] .sun-and-moon > .moon > circle {
+  transform: translateX(-7px);
+}
+
+@supports (cx: 1) {
+  [data-theme=dark] .sun-and-moon > .moon > circle {
+    cx: 17;
+    transform: translateX(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sun-and-moon > .sun {
+    transition: transform 0.5s var(--ease-elastic-3);
+  }
+  .sun-and-moon > .sun-beams {
+    transition: transform 0.5s var(--ease-elastic-4), opacity 0.5s var(--ease-3);
+  }
+  .sun-and-moon .moon > circle {
+    transition: transform 0.25s var(--ease-out-5);
+  }
+  @supports (cx: 1) {
+    .sun-and-moon .moon > circle {
+      transition: cx 0.25s var(--ease-out-5);
+    }
+  }
+  [data-theme=dark] .sun-and-moon > .sun {
+    transition-timing-function: var(--ease-3);
+    transition-duration: 0.25s;
+    transform: scale(1.75);
+  }
+  [data-theme=dark] .sun-and-moon > .sun-beams {
+    transition-duration: 0.15s;
+    transform: rotateZ(-25deg);
+  }
+  [data-theme=dark] .sun-and-moon > .moon > circle {
+    transition-duration: 0.5s;
+    transition-delay: 0.25s;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  #theme-toggle-mobile {
+    display: block !important;
+    margin: 0 auto;
+  }
+}
+/* =========================================
+   6. COMPONENTS: PROFILE SECTION
+   ========================================= */
+#profil {
+  display: flex;
+  justify-content: center;
+  gap: 5rem;
+  height: 80vh;
+}
+
+.section_pic-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+}
+.section_pic-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#profil .section_pic-container {
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.section_text {
+  align-self: center;
+  text-align: center;
+  font-weight: 600;
+}
+
+.section_p1 {
+  text-align: center;
+}
+
+.section_p2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--heading-color);
+}
+.title span {
+  display: inline-block;
+  animation: wave 1.5s ease-in-out;
+  animation-delay: calc(1s + var(--i) * 0.1s);
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+    color: var(--border-color);
+  }
+  40%, 100% {
+    transform: translateY(0);
+  }
+}
+#social-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.icon {
+  cursor: pointer;
+  height: 2rem;
+  filter: var(--icon-filter);
+  transition: filter 0.3s ease;
+}
+
+/* --- RESPONSIVE PROFILE --- */
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1400px) {
+  #profil {
+    height: 83vh;
+    margin-bottom: 6rem;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  #profil {
+    display: block;
+  }
+  #profil .section_pic-container {
+    width: 275px;
+    height: 275px;
+    margin: 0 auto 2rem;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  #profil {
+    height: 83vh;
+    margin-bottom: 0;
+  }
+  .title {
+    font-size: 2rem;
+  }
+  .section_p2 {
+    font-size: 1.25rem;
+  }
+  #profil .section_pic-container {
+    width: 55vw;
+    height: 55vw;
+    max-width: 275px;
+    max-height: 275px;
+    margin: 0 auto 2rem;
+  }
+}
+/* =========================================
+   6. COMPONENTS: ABOUT SECTION
+   ========================================= */
+#about {
+  position: relative;
+}
+
+#about .section_pic-container {
+  width: 400px;
+  min-width: 400px; /* Sicherheit: Darf nicht kleiner werden */
+  height: auto;
+  border-radius: 2rem;
+  overflow: hidden;
+  margin: auto 2rem 0;
+}
+
+.about-containers {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.about-details-container {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.details-container {
+  padding: 1.5rem;
+  flex: 1;
+  background: var(--box-bg);
+  border-radius: 2rem;
+  border: 0.1rem solid var(--border-color);
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.text-container p {
+  text-align: justify;
+}
+
+.arrow {
+  position: absolute;
+  right: -5rem;
+  bottom: 2.5rem;
+  filter: var(--icon-filter);
+}
+
+.education-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: left;
+  font-size: 0.95rem;
+}
+.education-table th {
+  padding: 1rem 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  color: var(--heading-color);
+}
+.education-table td {
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease;
+}
+.education-table td:first-child {
+  font-weight: 500;
+  white-space: nowrap;
+  width: 30%;
+  color: var(--heading-color);
+}
+.education-table tr:hover td {
+  background-color: rgba(128, 128, 128, 0.1);
+  cursor: default;
+}
+
+/* --- RESPONSIVE ABOUT --- */
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1400px) {
+  .about-containers {
+    flex-wrap: wrap;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  .about-containers {
+    margin-top: 0;
+  }
+  .arrow {
+    display: none;
+  }
+  #about .section_pic-container {
+    width: 100%;
+    max-width: 400px;
+    min-width: 0; /* Flexibilität zurückgeben */
+    height: auto;
+    margin: 0 auto 2rem;
+    border-radius: 2rem;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  .about-containers {
+    flex-wrap: wrap;
+  }
+  .text-container {
+    text-align: justify;
+  }
+  #about .section_pic-container {
+    width: 80vw;
+    height: auto;
+    border-radius: 1.5rem;
+  }
+  .education-table {
+    font-size: 0.85rem;
+  }
+  .education-table th, .education-table td {
+    padding: 0.75rem 0.25rem;
+  }
+}
+/* =========================================
+   6. COMPONENTS: EXPERIENCE
+   ========================================= */
+#experience {
+  position: relative;
+}
+
+.experience-sub-title {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.experience-details-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.article-container {
+  display: flex;
+  text-align: initial;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 2.5rem;
+  justify-content: space-around;
+}
+
+article {
+  display: flex;
+  width: 10rem;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+article .icon {
+  cursor: default;
+}
+
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 1200px) {
+  #experience,
+  .experience-details-container {
+    margin-top: 2rem;
+  }
+}
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  article {
+    font-size: 1rem;
+  }
+  .experience-sub-title {
+    font-size: 1.25rem;
+  }
+}
+/* =========================================
+   6. COMPONENTS: PROJECTS
+   ========================================= */
+#projects {
+  position: relative;
+}
+
+.color-container {
+  border-color: var(--border-color);
+  background: var(--box-bg);
+}
+
+.project-img {
+  border-radius: 2rem;
+  width: 90%;
+  height: 90%;
+}
+
+.project-title {
+  margin: 1rem;
+  color: var(--heading-color);
+}
+
+.project-btn {
+  color: var(--heading-color);
+  border-color: var(--border-color);
+  background: transparent;
+}
+.project-btn:hover {
+  background: var(--heading-color);
+  color: var(--bg-color);
+}
+
+/* =========================================
+   6. COMPONENTS: CONTACT
+   ========================================= */
+#contact {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: auto;
+  min-height: 80vh;
+  margin-bottom: 4rem;
+}
+
+.contact-info-upper-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  border: 0.1rem solid var(--border-color);
+  background: var(--box-bg);
+  margin: 2rem;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.contact-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+.contact-info-container p {
+  font-size: larger;
+}
+
+.contact-icon {
+  cursor: default;
+}
+
+.email-icon {
+  height: 2.5rem;
+}
+
+/* FORMULAR */
+.contact-form-container {
+  border: 0.1rem solid var(--border-color);
+  background: var(--box-bg);
+  border-radius: 2rem;
+  padding: 2rem;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: var(--shadow);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+label {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+input,
+textarea {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--border-color);
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: inherit;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--heading-color);
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-btn-container {
+  margin-top: 1rem;
+}
+.form-btn-container .btn {
+  width: 100%;
+}
+
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  #contact {
+    height: -moz-fit-content;
+    height: fit-content;
+    padding-bottom: 2rem;
+  }
+  .contact-info-upper-container {
+    flex-wrap: wrap;
+  }
+  .contact-info-container {
+    margin: 0;
+  }
+  .contact-info-container p {
+    font-size: 1rem;
+  }
+  .contact-form-container {
+    width: 90%;
+    padding: 1rem;
+  }
+}
+.success-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(76, 175, 80, 0.1); /* Helles Grün, transparent */
+  border: 1px solid #4caf50;
+  color: #4caf50; /* Dunkles Grün für Text */
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: 500;
+  /* Kleine Animation beim Erscheinen */
+  animation: fadeInMsg 0.5s ease forwards;
+}
+
+@keyframes fadeInMsg {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================================
+   6. COMPONENTS: FOOTER
+   ========================================= */
+footer {
+  height: 26vh;
+  margin: 0 1rem;
+}
+footer p {
+  text-align: center;
+  margin-top: 2rem;
+}
+footer .nav-links {
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* LARGE = Alles unter 1400px (Laptop) */
+@media screen and (max-width: 600px) {
+  footer {
+    height: -moz-fit-content;
+    height: fit-content;
+    padding-bottom: 2rem;
+  }
+  footer nav {
+    height: -moz-fit-content;
+    height: fit-content;
+    margin-bottom: 2rem;
+  }
+}
+/* =========================================
+   7. TRUMPS: UTILITIES
+   ========================================= */
+.mt-1 {
+  margin-top: 1rem !important;
+}
+
+.mb-1 {
+  margin-bottom: 1rem !important;
+}
+
+.mt-2 {
+  margin-top: 2rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 2rem !important;
+}
+
+.mt-3 {
+  margin-top: 3rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 3rem !important;
+}/*# sourceMappingURL=main.css.map */

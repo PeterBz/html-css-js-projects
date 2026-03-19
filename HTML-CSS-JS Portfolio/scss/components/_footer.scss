@@ -1,0 +1,30 @@
+/* =========================================
+   6. COMPONENTS: FOOTER
+   ========================================= */
+
+footer {
+  height: 26vh;
+  margin: 0 1rem;
+
+  p {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .nav-links {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
+
+@include mq(small) {
+  footer {
+    height: fit-content;
+    padding-bottom: 2rem;
+    
+    nav {
+      height: fit-content;
+      margin-bottom: 2rem;
+    }
+  }
+}
